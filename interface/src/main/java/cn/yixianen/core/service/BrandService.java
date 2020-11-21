@@ -23,4 +23,29 @@ public interface BrandService {
      * @return
      */
     PageResult findByPage(Integer page,Integer rows);
+
+    /**
+     * 添加品牌
+     * @param brand
+     */
+    void add(Brand brand);
+
+    /**
+     * 数据回显
+     * @param id
+     * @return
+     */
+    Brand findOne(Long id);
+
+    /**
+     * 更新数据
+     * @param brand
+     */
+    void update(Brand brand);
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    void delete(Long[] ids);
 }

@@ -30,4 +30,30 @@ public class BrandServiceImpl implements BrandService {
         System.out.println("service===="+brandList.getTotal());
         return new PageResult(brandList.getTotal(), brandList.getResult());
     }
+
+    @Override
+    public void add(Brand brand) {
+        brandDao.insertSelective(brand);
+    }
+
+    @Override
+    public Brand findOne(Long id) {
+        Brand brand = brandDao.selectByPrimaryKey(id);
+        return brand;
+    }
+
+    @Override
+    public void update(Brand brand) {
+        brandDao.updateByPrimaryKeySelective(brand);
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+        if (ids != null){
+            for (Long id : ids) {
+                brandDao.deleteByPrimaryKey(id);
+            }
+        }
+    }
+
 }
