@@ -22,7 +22,7 @@ public interface BrandService {
      * @param rows 每页展示条数
      * @return
      */
-    PageResult findByPage(Integer page,Integer rows);
+    PageResult findByPage(Brand brand,Integer page,Integer rows);
 
     /**
      * 添加品牌

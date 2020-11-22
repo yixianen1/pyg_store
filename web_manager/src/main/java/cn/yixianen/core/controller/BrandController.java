@@ -36,7 +36,7 @@ public class BrandController {
     @RequestMapping("/findByPage")
     public PageResult findByPage(Integer page, Integer rows) {
         System.out.println("controller===" + page + "===" + rows);
-        return brandService.findByPage(page, rows);
+        return brandService.findByPage(null,page, rows);
     }
 
     /**
@@ -100,5 +100,18 @@ public class BrandController {
             e.printStackTrace();
             return new Result(false, "删除失败");
         }
+    }
+
+    /**
+     * 高级查询
+     * @param brand
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/search")
+    public PageResult search(@RequestBody Brand brand,Integer page,Integer rows){
+        PageResult pageResult = brandService.findByPage(brand,page, rows);
+        return pageResult;
     }
 }
