@@ -66,7 +66,6 @@ app.controller('specificationController' ,function($scope,$controller   ,specifi
 	}
 	
 	$scope.searchEntity={};//定义搜索对象 
-	
 	//搜索
 	$scope.search=function(page,rows){			
 		specificationService.search(page,rows,$scope.searchEntity).success(
