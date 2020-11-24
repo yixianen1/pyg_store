@@ -1,6 +1,7 @@
 package cn.yixianen.core.service;
 
 import cn.yixianen.core.pojo.entity.PageResult;
+import cn.yixianen.core.pojo.entity.SpecEntity;
 import cn.yixianen.core.pojo.specification.Specification;
 
 /**
@@ -16,4 +17,29 @@ public interface SpecificationService {
      * @return
      */
     PageResult findPage(Specification spec,Integer page,Integer rows);
+
+    /**
+     * 添加规格
+     * @param specEntity
+     */
+    void add(SpecEntity specEntity);
+
+    /**
+     * 修改规格数据回显
+     * @param id
+     * @return
+     */
+    SpecEntity findOne(Long id);
+
+    /**
+     * 修改规格
+     * @param specEntity
+     */
+    void update(SpecEntity specEntity);
+
+    /**
+     * 批量删除规格
+     * @param ids
+     */
+    void delete(Long[] ids);
 }
