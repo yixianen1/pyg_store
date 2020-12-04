@@ -31,11 +31,35 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         TypeTemplateQuery.Criteria criteria = query.createCriteria();
         if (typeTemplate != null) {
             if (typeTemplate.getName() != null && !"".equals(typeTemplate.getName())) {
-                criteria.andNameLike("%"+ typeTemplate.getName()+"%");
+                criteria.andNameLike("%" + typeTemplate.getName() + "%");
             }
         }
         Page<TypeTemplate> templateList = (Page<TypeTemplate>) templateDao.selectByExample(query);
 
-        return new PageResult(templateList.getTotal(),templateList.getResult());
+        return new PageResult(templateList.getTotal(), templateList.getResult());
+    }
+
+    @Override
+    public TypeTemplate findOne(Long id) {
+        return templateDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void add(TypeTemplate typeTemplate) {
+        templateDao.insertSelective(typeTemplate);
+    }
+
+    @Override
+    public void update(TypeTemplate typeTemplate) {
+        templateDao.updateByPrimaryKey(typeTemplate);
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+        if (ids != null){
+            for (Long id : ids) {
+                templateDao.deleteByPrimaryKey(id);
+            }
+        }
     }
 }

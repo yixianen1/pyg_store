@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -106,6 +107,11 @@ public class SpecificationServiceImpl implements SpecificationService {
                 optionDao.deleteByExample(query);
             }
         }
+    }
+
+    @Override
+    public List<Map> selectOptionList() {
+        return specDao.selectOptionList();
     }
 
 

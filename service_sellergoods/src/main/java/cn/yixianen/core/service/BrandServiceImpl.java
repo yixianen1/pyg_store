@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yixianen
@@ -67,6 +68,11 @@ public class BrandServiceImpl implements BrandService {
                 brandDao.deleteByPrimaryKey(id);
             }
         }
+    }
+
+    @Override
+    public List<Map> selectOptionList() {
+        return brandDao.selectOptionList();
     }
 
 }

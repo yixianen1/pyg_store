@@ -5,6 +5,7 @@ import cn.yixianen.core.pojo.good.Brand;
 import com.alibaba.dubbo.config.annotation.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yixianen
@@ -48,4 +49,10 @@ public interface BrandService {
      * @param ids
      */
     void delete(Long[] ids);
+
+    /**
+     * 模板的品牌下拉框数据回显
+     * @return List<Map>
+     */
+    List<Map> selectOptionList();
 }

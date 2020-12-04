@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yixianen
@@ -36,7 +37,7 @@ public class BrandController {
     @RequestMapping("/findByPage")
     public PageResult findByPage(Integer page, Integer rows) {
         System.out.println("controller===" + page + "===" + rows);
-        return brandService.findByPage(null,page, rows);
+        return brandService.findByPage(null, page, rows);
     }
 
     /**
@@ -104,14 +105,24 @@ public class BrandController {
 
     /**
      * 高级查询
+     *
      * @param brand
      * @param page
      * @param rows
      * @return
      */
     @RequestMapping("/search")
-    public PageResult search(@RequestBody Brand brand,Integer page,Integer rows){
-        PageResult pageResult = brandService.findByPage(brand,page, rows);
+    public PageResult search(@RequestBody Brand brand, Integer page, Integer rows) {
+        PageResult pageResult = brandService.findByPage(brand, page, rows);
         return pageResult;
+    }
+
+    /**
+     * 模板品牌下拉框数据回显
+     * @return
+     */
+    @RequestMapping("/selectOptionList")
+    public List<Map> selectOptionList(){
+        return brandService.selectOptionList();
     }
 }

@@ -4,6 +4,9 @@ import cn.yixianen.core.pojo.entity.PageResult;
 import cn.yixianen.core.pojo.entity.SpecEntity;
 import cn.yixianen.core.pojo.specification.Specification;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author yixianen
  */
@@ -42,4 +45,10 @@ public interface SpecificationService {
      * @param ids
      */
     void delete(Long[] ids);
+
+    /**
+     * 模板页规格下拉框数据回显
+     * @return
+     */
+    List<Map> selectOptionList();
 }
