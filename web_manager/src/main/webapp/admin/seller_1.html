@@ -43,9 +43,9 @@
                             
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-							        公司名称：<input  >
-									店铺名称： <input  >									
-									<button class="btn btn-default" >查询</button>                                    
+							        公司名称：<input ng-model="searchEntity.name" >
+									店铺名称： <input ng-model="searchEntity.nickName" >
+									<button ng-click="reloadList()" class="btn btn-default" >查询</button>
                                 </div>
                             </div>
                             <!--工具栏/-->
