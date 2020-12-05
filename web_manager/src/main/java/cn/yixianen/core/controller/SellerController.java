@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class SellerController {
     @Reference
     private SellerService sellerService;
+
     @RequestMapping("/search")
-    public PageResult search(@RequestBody Seller seller,Integer page,Integer rows){
+    public PageResult search(@RequestBody Seller seller, Integer page, Integer rows) {
         return sellerService.search(seller, page, rows);
     }
 
     @RequestMapping("/updateStatus")
-    public Result updateStatus(String sellerId, String status){
+    public Result updateStatus(String sellerId, String status) {
         try {
             sellerService.updateStatus(sellerId, status);
             return new Result(true, "修改商家状态成功");
@@ -32,8 +33,9 @@ public class SellerController {
             return new Result(false, "修改商家状态失败");
         }
     }
+
     @RequestMapping("/findOne")
-    public Seller findOne(String id){
+    public Seller findOne(String id) {
         return sellerService.findOne(id);
     }
 }
