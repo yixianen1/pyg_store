@@ -19,4 +19,11 @@ public interface ItemCatService {
      * @return
      */
     List<ItemCat> findByParentId(Long parentId);
+
+    /**
+     * 根据id查询实体
+     * @param id 分类主键
+     * @return
+     */
+    ItemCat findOne(Long id);
 }

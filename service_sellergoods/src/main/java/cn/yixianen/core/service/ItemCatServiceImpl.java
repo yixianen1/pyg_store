@@ -25,4 +25,9 @@ public class ItemCatServiceImpl implements ItemCatService {
         criteria.andParentIdEqualTo(parentId);
         return catDao.selectByExample(query);
     }
+
+    @Override
+    public ItemCat findOne(Long id) {
+        return catDao.selectByPrimaryKey(id);
+    }
 }
