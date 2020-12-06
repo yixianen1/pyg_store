@@ -51,7 +51,7 @@
 	<authentication-manager>
 		<!-- 认证的提供者 -->
 		<authentication-provider user-service-ref="userDetailService">
-			<password-encoder ref="passwordEncoder"></password-encoder>	
+<!--			<password-encoder ref="passwordEncoder"></password-encoder>	-->
 		</authentication-provider>
 	</authentication-manager>
 		
@@ -59,11 +59,12 @@
 	<!-- 引用dubbo 服务 -->	
 	<dubbo:application name="pinyougou-shop-web" />
 	<dubbo:registry address="zookeeper://192.168.200.128:2181"/>
-	<dubbo:reference id="sellerService"  interface="cn.itcast.core.service.SellerService" >
+	<dubbo:reference id="sellerService"
+					 interface="cn.yixianen.core.service.SellerService" >
 	</dubbo:reference>
 	
 	<!-- 配置自定义的认证类 -->
-	<beans:bean id="userDetailService" class="cn.itcast.core.service.UserDetailServiceImpl">
+	<beans:bean id="userDetailService" class="cn.yixianen.core.service.UserDetailServiceImpl">
 		<beans:property name="sellerService" ref="sellerService"></beans:property>
 	</beans:bean>
 
