@@ -30,4 +30,6 @@ public class ItemCatServiceImpl implements ItemCatService {
     public ItemCat findOne(Long id) {
         return catDao.selectByPrimaryKey(id);
     }
+
+
 }
