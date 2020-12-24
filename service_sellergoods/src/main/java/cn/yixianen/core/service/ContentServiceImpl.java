@@ -63,4 +63,12 @@ public class ContentServiceImpl implements ContentService {
             }
         }
     }
+
+    @Override
+    public List<Content> findByCategoryId(Long categoryId) {
+        ContentQuery query = new ContentQuery();
+        ContentQuery.Criteria criteria = query.createCriteria();
+        criteria.andCategoryIdEqualTo(categoryId);
+        return contentDao.selectByExample(query);
+    }
 }
