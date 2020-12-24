@@ -7,12 +7,20 @@ import cn.yixianen.core.dao.item.ItemCatDao;
 import cn.yixianen.core.dao.item.ItemDao;
 import cn.yixianen.core.dao.seller.SellerDao;
 import cn.yixianen.core.pojo.entity.GoodsEntity;
+import cn.yixianen.core.pojo.entity.PageResult;
 import cn.yixianen.core.pojo.good.Brand;
+import cn.yixianen.core.pojo.good.Goods;
+import cn.yixianen.core.pojo.good.GoodsDesc;
+import cn.yixianen.core.pojo.good.GoodsQuery;
 import cn.yixianen.core.pojo.item.Item;
 import cn.yixianen.core.pojo.item.ItemCat;
+import cn.yixianen.core.pojo.item.ItemCatQuery;
+import cn.yixianen.core.pojo.item.ItemQuery;
 import cn.yixianen.core.pojo.seller.Seller;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,6 +73,7 @@ public class GoodsServiceImpl implements GoodsService {
          */
         insertItem(goodsEntity);
     }
+
 
     /**
      * 使用goodsEntity实体类中的数据初始化, item库存对象中的属性值
@@ -149,6 +158,70 @@ public class GoodsServiceImpl implements GoodsService {
             //设置库存对象的属性值
             setItemValue(goodsEntity, item);
             itemDao.insertSelective(item);
+        }
+    }
+
+    @Override
+    public PageResult findPage(Goods goods, Integer page, Integer rows) {
+        PageHelper.startPage(page, rows);
+        GoodsQuery query = new GoodsQuery();
+        GoodsQuery.Criteria criteria = query.createCriteria();
+        if (goods != null) {
+            if (goods.getGoodsName() != null && !"".equals(goods.getGoodsName())) {
+                criteria.andGoodsNameLike("%" + goods.getGoodsName() + "%");
+            }
+            if (goods.getAuditStatus() != null && !"".equals(goods.getAuditStatus())) {
+                criteria.andAuditStatusEqualTo(goods.getAuditStatus());
+            }
+            if (goods.getSellerId() != null && !"".equals(goods.getSellerId()) && !"admin".equals(goods.getSellerId()) && !"wc".equals(goods.getSellerId())) {
+                criteria.andSellerIdEqualTo(goods.getSellerId());
+            }
+        }
+        Page<Goods> goodsList = (Page<Goods>) goodsDao.selectByExample(query);
+
+        return new PageResult(goodsList.getTotal(), goodsList.getResult());
+    }
+
+    @Override
+    public GoodsEntity findOne(Long id) {
+        Goods goods = goodsDao.selectByPrimaryKey(id);
+        GoodsDesc goodsDesc = descDao.selectByPrimaryKey(id);
+        ItemQuery query = new ItemQuery();
+        ItemQuery.Criteria criteria = query.createCriteria();
+        criteria.andGoodsIdEqualTo(id);
+        List<Item> items = itemDao.selectByExample(query);
+        GoodsEntity goodsEntity = new GoodsEntity();
+        goodsEntity.setGoods(goods);
+        goodsEntity.setGoodsDesc(goodsDesc);
+        goodsEntity.setItemList(items);
+        return goodsEntity;
+    }
+
+    @Override
+    public void update(GoodsEntity goodsEntity) {
+        //修改商品对象
+        goodsDao.updateByPrimaryKeySelective(goodsEntity.getGoods());
+        //修改商品详情对象
+        descDao.updateByPrimaryKeySelective(goodsEntity.getGoodsDesc());
+        //根据商品id删除对应的库存集合数据
+        ItemQuery query = new ItemQuery();
+        ItemQuery.Criteria criteria = query.createCriteria();
+        criteria.andGoodsIdEqualTo(goodsEntity.getGoods().getId());
+        itemDao.deleteByExample(query);
+        //添加库存集合数据
+        insertItem(goodsEntity);
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+        if (ids != null) {
+            for (Long id : ids) {
+                Goods goods = new Goods();
+                goods.setIsDelete("1");
+                goods.setId(id);
+                goodsDao.updateByPrimaryKeySelective(goods);
+            }
+
         }
     }
 

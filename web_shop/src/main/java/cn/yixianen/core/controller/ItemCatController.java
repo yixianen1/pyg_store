@@ -23,9 +23,15 @@ public class ItemCatController {
     public List<ItemCat> findByParentId(Long parentId) {
         return catService.findByParentId(parentId);
     }
+
     @RequestMapping("/findOne")
-    public ItemCat findOne(Long id){
+    public ItemCat findOne(Long id) {
         return catService.findOne(id);
+    }
+
+    @RequestMapping("/findAll")
+    public List<ItemCat> findAll() {
+        return catService.findAll();
     }
 
 }

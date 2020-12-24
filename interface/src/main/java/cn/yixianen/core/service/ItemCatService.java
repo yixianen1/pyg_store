@@ -1,5 +1,6 @@
 package cn.yixianen.core.service;
 
+import cn.yixianen.core.pojo.entity.GoodsEntity;
 import cn.yixianen.core.pojo.item.ItemCat;
 
 import java.util.List;
@@ -26,4 +27,12 @@ public interface ItemCatService {
      * @return
      */
     ItemCat findOne(Long id);
+
+    /**
+     * 查询所有
+     * @return
+     */
+    List<ItemCat> findAll();
+
+
 }

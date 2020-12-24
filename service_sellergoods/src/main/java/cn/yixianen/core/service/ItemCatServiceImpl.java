@@ -31,5 +31,10 @@ public class ItemCatServiceImpl implements ItemCatService {
         return catDao.selectByPrimaryKey(id);
     }
 
+    @Override
+    public List<ItemCat> findAll() {
+        return catDao.selectByExample(null);
+    }
+
 
 }
